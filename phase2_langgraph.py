@@ -14,20 +14,20 @@ from typing import TypedDict
 from pydantic import BaseModel, Field
 
 from langchain_core.tools import tool
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
 
-# Load environment variables (particularly expected for GROQ_API_KEY)
+# Load environment variables (particularly expected for OPENAI_API_KEY)
 load_dotenv()
 
 # We set up a helper function to instantiate LLM when needed with proper API key checks
 def get_llm():
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        raise ValueError("GROQ_API_KEY is not set in environment variables.")
-    return ChatGroq(
-        api_key=groq_api_key,
-        model_name="llama3-8b-8192",
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        raise ValueError("OPENAI_API_KEY is not set in environment variables.")
+    return ChatOpenAI(
+        api_key=openai_api_key,
+        model_name="gpt-4o-mini",
         temperature=0.7
     )
 

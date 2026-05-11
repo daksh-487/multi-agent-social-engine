@@ -8,7 +8,7 @@ This module completes Phase 3 of the Grid07 AI pipeline:
 """
 import os
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
 # Load environment logic
@@ -34,15 +34,14 @@ def generate_defense_reply(
         str: The LLM's response successfully acting as the persona despite attacks.
     """
     
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        raise ValueError("GROQ_API_KEY is not set in environment variables.")
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        raise ValueError("OPENAI_API_KEY is not set in environment variables.")
 
     # Initialize the LLM
-    # llama3-8b-8192 designated to execute our defense mechanisms efficiently
-    llm = ChatGroq(
-        api_key=groq_api_key,
-        model_name="llama3-8b-8192",
+    llm = ChatOpenAI(
+        api_key=openai_api_key,
+        model_name="gpt-4o-mini",
         temperature=0.8
     )
 
